@@ -1,0 +1,95 @@
+@extends('layouts.main')
+
+@push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error( error )
+        })
+</script>
+@endpush
+
+@section('content')
+<form action="{{ route('product.create') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="d-flex align-items-center mb-3">
+        <h3 class="display-3">{{ __('Publish') }}</h3>
+        <button class="ms-auto btn btn-primary">Publish</button>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <x-forms.input name="title" label="{{ __('Title') }}" />
+                    <div class="mb-3">
+                        <label for="description">{{ __('Description') }}</label>
+                        <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description">{{ old('description') }}</textarea>
+                        @if ($errors->has('description'))
+                            <p class="invalid-feedback">{{ $errors->first('description') }}</p>
+                        @endif
+                    </div>
+                    <div class="mb-3">
+                        <label for="content">{{ __('Content') }}</label>
+                        <textarea id="editor" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content">{{ old('content') }}</textarea>
+                        @if ($errors->has('content'))
+                            <p class="invalid-feedback">{{ $errors->first('content') }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="type_id">{{ __('Type') }}</label>
+                        <select class="form-control{{ $errors->has('type_id') ? ' is-invalid' : '' }}" name="type_id">
+                            <option value="">{{ __('Please choose') }}</option>
+                            @foreach($types as $type)
+                                <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                                    {{ $type->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('type_id'))
+                            <p class="invalid-feedback">{{ $errors->first('type_id') }}</p>
+                        @endif
+                    </div>
+                    <div class="mb-3">
+                        <label for="publisher_id">{{ __('Publisher') }}</label>
+                        <select class="form-control{{ $errors->has('publisher_id') ? ' is-invalid' : '' }}" name="publisher_id">
+                            <option value="">{{ __('Please choose') }}</option>
+                            @foreach($publishers as $publisher)
+                                <option value="{{ $publisher->id }}" {{ old('publisher_id') == $publisher->id ? 'selected' : '' }}>
+                                    {{ $publisher->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('publisher_id'))
+                            <p class="invalid-feedback">{{ $errors->first('publisher_id') }}</p>
+                        @endif
+                    </div>
+                     <div class="mb-3">
+                        <label for="price">{{ __('Price') }}</label>
+                        {{--<textarea class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price">{{ old('price') }}</textarea>
+                        --}}
+                        <input id="price" type="number" name="price">
+                        @if ($errors->has('price'))
+                            <p class="invalid-feedback">{{ $errors->first('price') }}</p>
+                        @endif
+                    </div>
+                    <div class="mb-3">
+                        <label for="cover">{{ __('Cover image') }}</label>
+                        <input class="form-control{{ $errors->has('cover') ? ' is-invalid' : '' }}" type="file" name="cover" value="{{ old('cover') }}">
+                        @if ($errors->has('cover'))
+                            <p class="invalid-feedback">{{ $errors->first('cover') }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@endsection
