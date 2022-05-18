@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/product/{product}/edit',[Controllers\ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product/{product}/edit',[Controllers\ProductController::class, 'update']);
+    Route::get('/product/{product}/delete',[Controllers\ProductController::class, 'destroy'])->name('product.delete');
 
     Route::post('/product/{product}/comment',[Controllers\ProductController::class, 'comment'])->name('product.comment');
 });

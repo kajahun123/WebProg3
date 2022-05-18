@@ -14,6 +14,12 @@ use App\Models\Comment;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class, 'product');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -74,9 +80,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        if ($product->author != Auth::user()) {
-            return abort(403);
-        }
+       
 
         $types = Type::orderBy('name')->get();
 
@@ -92,9 +96,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        if ($product->author != Auth::user()) {
-            return abort(403);
-        }
+        
 
         $product->update($request->except('_token'));
 
@@ -120,7 +122,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()
+            ->route('home', $product)
+            ->with('success', __('Post deleted succesfully'));
     }
 
     private function uploadImage(Request $request)
@@ -151,5 +156,13 @@ class ProductController extends Controller
        $url = route('product.details', $product) . "#comment-{$comment->id}";
 
        return redirect($url)->with('success', __('Comment saved successfully'));
+    }
+
+    protected function resourceAbilityMap()
+    {
+        $abilityMap = parent::resourceAbilityMap();
+
+        $abilityMap['comment'] = 'create';
+        return $abilityMap;
     }
 }

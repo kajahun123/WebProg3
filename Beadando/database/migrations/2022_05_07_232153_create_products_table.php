@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('title', 240);
             $table->text('description');
             $table->longText('content');
+            $table->string('cover')->nullable();
             $table->timestamps();
         });
     }

@@ -18,17 +18,34 @@
                         {{__('Buy it')}}
                     </a></p>     
 <p class="fw-bold">{{ $product->description }}</p>
+
 <div>
     {!! $product->content !!}
 </div>
 </div>
+<p> 
+    @can('update', $product)
+        <a class="btn btn-sm btn-secondary" href="{{ route('product.edit', $product)}}">
+            {{__('Edit')}}
+        </a>
+    @endcan
 
+</p>
+<p> 
+    @can('delete', $product)
+        <a class="btn btn-sm btn-secondary" href="{{ route('product.delete', $product)}}">
+            {{__('Delete')}}
+        </a>
+    @endcan
+
+</p>
 </div>
 <div class="row">
     <div class="col-md-8 col-lg-6 mx-auto">
         <h5 class="display-5">
             {{ __('Comments') }}
         </h5>
+        @auth
          <form action="{{ route('product.comment', $product) }}" method="POST">
             @csrf
             <div class="mb-3">
@@ -40,6 +57,13 @@
                 </button>
             </div>
         </form>
+        @else
+        <div class="d-grid">
+            <a class="btn btn-primary" href="{{ route('login') }}">
+                {{ __('Log in to comment') }}
+            </a>
+        </div>
+        @endif
         <div class="mt-5">
             @foreach($product->comments as $comment)
                 <div class="card mb-3" id="comment-{{$comment->id}}">
