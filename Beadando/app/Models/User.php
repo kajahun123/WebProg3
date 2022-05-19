@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'description',
     ];
 
     /**
@@ -51,4 +52,6 @@ class User extends Authenticatable
         $gravatar = md5($this->email);
         return "https://www.gravatar.com/avatar/{$gravatar}?s=100&d=identicon";
     }
+
+  
 }

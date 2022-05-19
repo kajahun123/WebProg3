@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
+use App\Models\Product;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +66,9 @@ class ProfileController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        
+
+        return view('profile.edit')->with(compact('user'));
     }
 
     /**
@@ -69,9 +78,12 @@ class ProfileController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(ProfileRequest $request, User $user)
     {
-        //
+        $user->update($request->except('_token'));
+        return redirect()
+            ->route('profile.show', $user)
+            ->with('success', __('Profile updated successfully'));
     }
 
     /**

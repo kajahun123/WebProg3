@@ -83,8 +83,9 @@ class ProductController extends Controller
        
 
         $types = Type::orderBy('name')->get();
+        $publishers = Publisher::orderBy('name')->get();
 
-        return view('product.edit')->with(compact('product', 'types'));
+        return view('product.edit')->with(compact('product', 'types','publishers'));
     }
 
     /**
@@ -111,7 +112,7 @@ class ProductController extends Controller
 
         return redirect()
             ->route('product.edit', $product)
-            ->with('success', __('Post updated successfully'));
+            ->with('success', __('Product updated successfully'));
     }
 
     /**
@@ -125,7 +126,7 @@ class ProductController extends Controller
         $product->delete();
         return redirect()
             ->route('home', $product)
-            ->with('success', __('Post deleted succesfully'));
+            ->with('success', __('Product deleted succesfully'));
     }
 
     private function uploadImage(Request $request)
@@ -156,6 +157,15 @@ class ProductController extends Controller
        $url = route('product.details', $product) . "#comment-{$comment->id}";
 
        return redirect($url)->with('success', __('Comment saved successfully'));
+    }
+
+    public function buy(Product $product)
+    {
+        $this->authorize('shop', $product);
+        $product->delete();
+        return redirect()
+            ->route('home', $product)
+            ->with('success', __('Product bought succesfully'));
     }
 
     protected function resourceAbilityMap()

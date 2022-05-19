@@ -25,6 +25,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/product/{product}/delete',[Controllers\ProductController::class, 'destroy'])->name('product.delete');
 
     Route::post('/product/{product}/comment',[Controllers\ProductController::class, 'comment'])->name('product.comment');
+
+    Route::get('/profile/{user}/edit',[Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/{user}/edit',[Controllers\ProfileController::class, 'update']);
+    Route::get('/product/{product}/buy',[Controllers\ProductController::class, 'buy'])->name('product.buy');
 });
 
 Route::get('/product/{product}', [Controllers\ProductController::class, 'show'])->name('product.details');

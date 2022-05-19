@@ -58,6 +58,20 @@
                         @endif
                     </div>
                     <div class="mb-3">
+                        <label for="publisher_id">{{ __('Publisher') }}</label>
+                        <select class="form-control{{ $errors->has('publisher_id') ? ' is-invalid' : '' }}" name="publisher_id">
+                            <option value="">{{ __('Please choose') }}</option>
+                            @foreach($publishers as $publisher)
+                                <option value="{{ $publisher->id }}" {{ old('publisher_id', $product->publisher_id) == $publisher->id ? 'selected' : '' }}>
+                                    {{ $publisher->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('publisher_id'))
+                            <p class="invalid-feedback">{{ $errors->first('publisher_id') }}</p>
+                        @endif
+                    </div>
+                    <div class="mb-3">
                         <label for="cover">{{ __('Cover image') }}</label>
                         <input class="form-control{{ $errors->has('cover') ? ' is-invalid' : '' }}" type="file" name="cover" value="{{ old('cover') }}">
                         @if ($errors->has('cover'))

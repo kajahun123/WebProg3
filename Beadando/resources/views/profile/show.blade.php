@@ -5,9 +5,15 @@
         <div class="col-lg-4 col-xl-3 text-center">
             <img class="mb-3 rounded-circle" src="{{ $user->avatar }}" alt="{{ $user->name }}">
             <h4 class="mb-3">{{ $user->name }}</h4>
-            <p class="px-5 text-start">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta aspernatur libero vero corrupti fugiat exercitationem?</p>
+            <p class="px-5 text-start">{{ $user->description ?: __('No description'); }}</p>
+            @can('update', $user)
+                <a class="btn btn-sm btn-secondary" href="{{ route('profile.edit', $user)}}">
+                    {{__('Edit profile')}}
+                </a>
+            @endcan
         </div>
         <div class="col-lg-8 col-xl-9">
+            <h3 class="mb-3">{{ __('Products by this user:') }}</h3>
             @forelse($products as $product)
                 @include('product._item')
             @empty

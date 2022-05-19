@@ -34,9 +34,13 @@
                     <a class="btn btn-sm btn-primary" href="{{ route('product.details', $product)}}">
                         {{__('Details')}}
                     </a>
-                    <a class="btn btn-sm btn-primary" href="{{ route('product.details', $product)}}">
+                @auth    
+                    @can('shop', $product)
+                    <a class="btn btn-sm btn-primary" href="{{ route('product.buy', $product)}}">
                         {{__('Buy it')}}
                     </a>
+                    @endcan
+                @endauth
                 </div>
             </div>
         </div>

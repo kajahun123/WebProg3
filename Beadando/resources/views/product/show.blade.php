@@ -14,9 +14,13 @@
                  | <a href="{{ route('type.show', $product->type) }}">
                             {{ $product->type->name }}</a>
                  | {{ $product->created_at->diffForHumans() }}</p>
-            <p class="">{{ $product->price }} Ft <a class="btn btn-sm btn-primary" href="{{ route('product.details', $product)}}">
-                        {{__('Buy it')}}
-                    </a></p>     
+            @auth    
+                    @can('shop', $product)
+                        <p class="">{{ $product->price }} Ft <a class="btn btn-sm btn-primary" href="{{ route('product.details', $product)}}">
+                                    {{__('Buy it')}}
+                                </a></p>    
+                    @endcan
+            @endauth 
 <p class="fw-bold">{{ $product->description }}</p>
 
 <div>
