@@ -72,6 +72,13 @@
                         @endif
                     </div>
                     <div class="mb-3">
+                        <label for="price">{{ __('Price') }}</label>
+                        <input id="price" type="number" name="price" value="{{ old('price', $product->price) }}">
+                        @if ($errors->has('price'))
+                            <p class="invalid-feedback">{{ $errors->first('price') }}</p>
+                        @endif
+                    </div>
+                    <div class="mb-3">
                         <label for="cover">{{ __('Cover image') }}</label>
                         <input class="form-control{{ $errors->has('cover') ? ' is-invalid' : '' }}" type="file" name="cover" value="{{ old('cover') }}">
                         @if ($errors->has('cover'))

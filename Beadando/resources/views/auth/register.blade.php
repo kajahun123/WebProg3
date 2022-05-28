@@ -8,7 +8,7 @@
                     <h3 class="display-3 mb-5">{{ __('Sign up' )}}</h3>
                     <form action="{{ route('register') }}" method="POST">
                         @csrf
-                        <x-forms.input name="name" label="{{ __('Full name') }}" />
+                        <x-forms.input name="name" label="{{ __('Name') }}" />
                         <x-forms.input name="email" type="email" label="{{ __('Email address')}}"/>
                         <x-forms.input name="password" type="password" label="{{ __('Password') }}" />
                         <x-forms.input name="password_confirmation" type="password" label="{{ __('Password confirmation') }}" />

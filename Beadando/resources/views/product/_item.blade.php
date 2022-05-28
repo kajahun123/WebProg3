@@ -37,7 +37,7 @@
                 @auth    
                     @can('shop', $product)
                     <a class="btn btn-sm btn-primary" href="{{ route('product.buy', $product)}}">
-                        {{__('Buy it')}}
+                        {{__('Purchase')}}
                     </a>
                     @endcan
                 @endauth

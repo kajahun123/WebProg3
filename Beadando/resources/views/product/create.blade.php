@@ -15,8 +15,8 @@
 <form action="{{ route('product.create') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="d-flex align-items-center mb-3">
-        <h3 class="display-3">{{ __('Publish') }}</h3>
-        <button class="ms-auto btn btn-primary">Publish</button>
+        <h3 class="display-3">{{ __('Add Product') }}</h3>
+        <button class="ms-auto btn btn-primary">{{ __('Add Product') }}</button>
     </div>
     <div class="row">
         <div class="col-lg-8 col-md-6">

@@ -16,8 +16,8 @@
                  | {{ $product->created_at->diffForHumans() }}</p>
             @auth    
                     @can('shop', $product)
-                        <p class="">{{ $product->price }} Ft <a class="btn btn-sm btn-primary" href="{{ route('product.details', $product)}}">
-                                    {{__('Buy it')}}
+                        <p class="">{{ $product->price }} Ft <a class="btn btn-sm btn-primary" href="{{ route('product.buy', $product)}}">
+                                    {{__('Purchase')}}
                                 </a></p>    
                     @endcan
             @endauth 

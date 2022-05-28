@@ -106,7 +106,7 @@ class ProductController extends Controller
         if ($image) {
             
 
-            $post->cover = $image->basename;
+            $product->cover = $image->basename;
             $product->save();
         }
 
@@ -165,7 +165,7 @@ class ProductController extends Controller
         $product->delete();
         return redirect()
             ->route('home', $product)
-            ->with('success', __('Product bought succesfully'));
+            ->with('success', __('Product purchased succesfully'));
     }
 
     protected function resourceAbilityMap()
